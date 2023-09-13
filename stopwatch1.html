@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .stopwatch {
+        font-size: 100px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+
+    }
+
+    button {
+        font-size: 30px;
+        padding: 10px 20px;
+        background-color: #ffa200;
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 0 5px;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    div {
+        color: white;
+    }
+</style>
+
+<body style="display:flex; align-items: center;justify-content: center;height: 700px;background-color:#00ff33">
+    <div style="display: flex;flex-direction: column;border: none;background-color: black;padding: 30px;">
+        <div class="stopwatch">
+            <div id="hours" style="font-size: 70px;">0h </div>
+            <div id="minutes" style="font-size: 70px;"> 0m</div>
+            <div id="seconds" style="font-size: 70px;"> 0s</div>
+            <div id="milliseconds" style="font-size: 70px;"> 00</div>
+        </div>
+        <div style="margin: 30px;"></div>
+        <div class="buttons">
+            <button id="start" onclick="begin()">START</button>
+            <button id="pause" onclick="stop()">PAUSE</button>
+            <button id="reset" onclick="reset()">RESET</button>
+        </div>
+    </div>
+</body>
+<script>
+    var hour = 0;
+    var min = 0;
+    var sec = 0;
+    var msec = 0;
+    function begin() {
+        document.getElementById("start").setAttribute('disabled', 'disabled');
+        watch = setInterval(() => {
+            msec++;
+            if (msec == 100) {
+                sec++;
+                msec = 0;
+            }
+            if (sec == 60) {
+                min++;
+                sec = 0;
+            }
+            if (min == 60) {
+                hour++;
+                min = 0;
+            }
+            document.getElementById("milliseconds").innerHTML = msec;
+            document.getElementById("seconds").innerHTML = sec + "s";
+            document.getElementById("minutes").innerHTML = min + "m";
+            document.getElementById("hours").innerHTML = hour + "h";
+        }, 10)
+
+
+    }
+    function stop() {
+        clearInterval(watch);
+        document.getElementById("start").removeAttribute('disabled', 'disabled');
+
+    }
+    function reset() {
+        hour = 0;
+        min = 0;
+        sec = 0;
+        msec = 0;
+        document.getElementById("milliseconds").innerHTML = "0h";
+        document.getElementById("seconds").innerHTML = " 0m";
+        document.getElementById("minutes").innerHTML = " 0s";
+        document.getElementById("hours").innerHTML = " 00";
+    }
+</script>
+
+</html>
